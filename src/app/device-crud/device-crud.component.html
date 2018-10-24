@@ -1,0 +1,47 @@
+<div class="container" *ngIf="device">
+  <div class="container">
+      <h2>Select an operation</h2>
+      <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" (click)="setCRUD('update')">Update</button>
+          <button type="button" class="btn btn-secondary" (click)="setCRUD('read')">Read</button>
+          <button type="button" class="btn btn-secondary" (click)="setCRUD('delete')">Delete</button>
+      </div>
+  </div>
+  <div class="container" [ngSwitch]="operation">
+      <div class="container" *ngSwitchCase="'update'">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col form-group">
+                <label>Hostname</label>
+                <input type="text" class="form-control" formControlName="hostname">
+                <div class="alert alert-danger" *ngIf="!form.controls['hostname'].valid && form.controls['hostname'].touched">Enter valid hostname</div>
+              </div>
+              <div class="col form-group">
+                <label>IP</label>
+                <input type="text" class="form-control" formControlName="ip">
+                <div class="alert alert-danger" *ngIf="form.controls['ip'].errors && form.controls['ip'].touched">Enter valid ip</div>
+              </div>
+            </div>
+            <div class="d-flex flex-row-reverse" *ngIf="showSubmitButton()">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+      </div>
+      <div class="container" *ngSwitchCase="'read'">
+          <table class="table table-hover">
+              <thead>
+                <th>Hostname</th>
+                <th>IP</th>
+              </thead>
+              <tr>
+                <td>{{ device.hostname }}</td>
+                <td>{{ device.ip }}</td>
+              </tr>
+            </table>
+      </div>
+      <div class="container d-flex justify-content-center" *ngSwitchCase="'delete'">
+          <button type="button" class="btn btn-danger" (click)="onSubmit()">Confirm Delete</button>
+      </div>
+</div>
+
+

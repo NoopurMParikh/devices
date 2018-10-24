@@ -1,0 +1,73 @@
+<!-- Button trigger modal -->
+<div class="container  d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        New Group
+    </button>
+</div>
+
+  
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Group</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="col form-group">
+                  <label>Group Name</label>
+                  <input type="text" class="form-control" formControlName="groupname">
+                  <div class="alert alert-danger" *ngIf="!form.controls['groupname'].valid && form.controls['groupname'].touched">Enter valid Group Name</div>
+                </div>
+                <div class="col form-group">
+                  <label>Group Description</label>
+                  <input type="text" class="form-control" formControlName="groupdesc">
+                  <div class="alert alert-danger" *ngIf="form.controls['groupdesc'].errors && form.controls['groupdesc'].touched">Enter valid Description</div>
+                </div>
+            </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label>Hostname</label>
+              <input type="text" class="form-control" formControlName="hostname">
+              <div class="alert alert-danger" *ngIf="!form.controls['hostname'].valid && form.controls['hostname'].touched">Enter valid hostname</div>
+            </div>
+            <div class="col form-group">
+              <label>IP</label>
+              <input type="text" class="form-control" formControlName="ip">
+              <div class="alert alert-danger" *ngIf="form.controls['ip'].errors && form.controls['ip'].touched">Enter valid ip</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Device Group(s)</label>
+            <input type="text" class="form-control" formControlName="group">
+            <div class="details">Separate multiple groups with a comma ','</div>
+            <div class="alert alert-danger" *ngIf="!form.controls['group'].valid && form.controls['group'].touched">Enter valid group</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addDevice()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <table class="table table-hover" *ngIf="groups">
+      <thead>
+        <th>Name</th>
+        <th>Number of Devices</th>
+      </thead>
+      <tr *ngFor="let group of groups">
+        <td><a [routerLink]="[group.id]">{{ group.name }}</a></td>
+        <td>{{ group.devices.length }}</td>
+      </tr>
+    </table>
+</div>
+

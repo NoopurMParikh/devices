@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="panel">
+    <h5 *ngIf="showUnathorizedMessage()">Unauthorized, please login to view the content</h5>
+    <h2>User Login</h2>
+    <p>Please enter your username and password</p>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control" formControlName="username">
+      <div class="alert alert-danger" *ngIf="!form.controls['username'].valid && form.controls['username'].touched">Enter username</div>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password">
+      <div class="alert alert-danger" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">Enter password</div>
+    </div>
+    <button type="submit" class="btn btn-primary">LogIn</button>
+    <div class="alert alert-danger" *ngIf="showIncorrectCredentials()">Invalid Credentials</div>
+    <div class="details" style="cursor: auto">Default username and passwords: JohnMiller, password123</div>
+  </form>
+</div>

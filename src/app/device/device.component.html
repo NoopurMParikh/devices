@@ -1,0 +1,53 @@
+<!-- Button trigger modal -->
+<div class="container  d-flex justify-content-end" *ngIf="form-group">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        New Device
+    </button>
+</div>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Device</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="col form-group">
+                <label>Hostname</label>
+                <input type="text" class="form-control" formControlName="hostname">
+                <div class="alert alert-danger" *ngIf="!form.controls['hostname'].valid && form.controls['hostname'].touched">Enter valid hostname</div>
+              </div>
+              <div class="col form-group">
+                <label>IP</label>
+                <input type="text" class="form-control" formControlName="ip">
+                <div class="alert alert-danger" *ngIf="form.controls['ip'].errors && form.controls['ip'].touched">Enter valid ip</div>
+              </div>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addDevice()" *ngIf="!form.controls['ip'].errors && form.controls['ip'].touched && !form.controls['hostname'].errors && form.controls['hostname'].touched">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <table class="table table-hover" *ngIf="devices">
+      <thead>
+        <th>Hostname</th>
+        <th>IP</th>
+      </thead>
+      <tr *ngFor="let device of devices">
+        <td><a [routerLink]="[device.id]">{{ device.hostname }}</a></td>
+        <td>{{ device.ip }}</td>
+      </tr>
+    </table>
+</div>

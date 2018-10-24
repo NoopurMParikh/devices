@@ -1,0 +1,77 @@
+<div class="container" *ngIf="group">
+  <div class="container">
+      <h2>Select an operation</h2>
+      <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" (click)="setCRUD('update')">Update</button>
+          <button type="button" class="btn btn-secondary" (click)="setCRUD('read')">Read</button>
+          <button type="button" class="btn btn-secondary" (click)="setCRUD('delete')">Delete</button>
+      </div>
+  </div>
+  <div class="container" [ngSwitch]="operation">
+    <div class="container" *ngSwitchCase="'update'">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <h5>Edit Group Details</h5>
+            <div class="form-group">
+              <label>Group name</label>
+              <input type="text" class="form-control" formControlName="name">
+              <div class="alert alert-danger" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">Enter valid name</div>
+            </div>
+            <div class="col form-group">
+              <label>Group Description</label>
+              <input type="text" class="form-control" formControlName="groupdesc">
+              <div class="alert alert-danger" *ngIf="form.controls['groupdesc'].errors && form.controls['groupdesc'].touched">Enter valid Description</div>
+            </div>
+            <h5>Edit Devices (click to remove)</h5>
+            <table class="table table-hover">
+              <thead>
+                <th>Hostname</th>
+                <th>IP</th>
+              </thead>
+              <tr *ngFor="let device of devices" (click)="removeDevice(device)">
+                <td><a [routerLink]="[device.id]">{{ device.hostname }}</a></td>
+                <td>{{ device.ip }}</td>
+              </tr>
+            </table>
+            <div class="form-row">
+              <div class="col form-group">
+                <label>Hostname</label>
+                <input type="text" class="form-control" formControlName="hostname">
+                <div class="alert alert-danger" *ngIf="!form.controls['hostname'].valid && form.controls['hostname'].touched">Enter valid hostname</div>
+              </div>
+              <div class="col form-group">
+                <label>IP</label>
+                <input type="text" class="form-control" formControlName="ip">
+                <div class="alert alert-danger" *ngIf="!form.controls['ip'].valid && form.controls['ip'].touched">Enter valid ip</div>
+              </div>
+            </div>
+            <div class="details" (click)="addDevice()">Add new device</div>
+            <div class="d-flex flex-row-reverse" *ngIf="showSubmitButton()">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+    <div class="container" *ngSwitchCase="'read'">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ group.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ group.devices.length }} devices</h6>
+            <table class="table table-hover">
+              <thead>
+                <th>Hostname</th>
+                <th>IP</th>
+                <th>Group(s)</th>
+              </thead>
+              <tr *ngFor="let device of group.devices">
+                <td><a [routerLink]="[device.id]">{{ device.hostname }}</a></td>
+                <td>{{ device.ip }}</td>
+                <td>{{ groupsString(device.group) }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center" *ngSwitchCase="'delete'">
+        <button type="button" class="btn btn-danger" (click)="onSubmit()">Confirm Delete</button>
+  </div>
+</div>
+  

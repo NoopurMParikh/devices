@@ -1,0 +1,44 @@
+
+<nav class="navbar navbar-inverse navbar-global navbar-fixed-top" data-spy="affix">
+  <div class="container-fluid">
+    <div class="navbar-header d-flex flex-row">
+      <a class="navbar-brand" href="#">Device Manager</a>
+      <div class="btn-expand-collapse" (click)='toggleCollapse()'>
+        <div class="menu-icon change" id="menu-bars">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+      </div>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <div class="container d-flex flex-row">
+          <ul class="nav navbar-nav navbar-user navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span>GlassDoor</a></li>
+          </ul>
+      </div>
+    </div><!--/.nav-collapse -->
+    <div *ngIf="userService.isLoggedIn(); else logIn">
+      <div class="container d-flex flex-row justify-content-around">
+          <h5 class="text-white">Welcome, {{userService.getUser().username}}.</h5>
+          <a class='nav-link' (click)="userService.logUserOut()" class="text-white" style="cursor: pointer"><span class="nav-label">LogOut</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav class="navbar-primary" id="navbar-main">
+  <ul class="navbar-primary-menu"  data-spy="affix">
+    <li>
+      <a a class='nav-link' routerLink='/device' ><span class="nav-label">Devices</span></a>
+      <a a class='nav-link' routerLink='/device_group' ><span class="nav-label">Devices Groups</span></a>
+    </li>
+  </ul>
+</nav>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #logIn>
+  <a class='nav-link text-white' style="cursor: pointer" routerLink='/login' ><span class="nav-label">LogIn</span></a>
+</ng-template>

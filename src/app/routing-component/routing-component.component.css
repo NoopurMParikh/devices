@@ -1,0 +1,118 @@
+.navbar-global {
+    background-color:#261570;
+  }
+  
+  .navbar-global .navbar-brand {
+    color: white;
+  }
+  
+  .navbar-global .navbar-user > li > a
+  {
+    color: white;
+  }
+  
+  .navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
+    top: 56px;
+    width: 200px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    height: 100%;
+  }
+  
+  .navbar-primary.collapsed {
+    width: 60px;
+  }
+  
+  .navbar-primary.collapsed .glyphicon {
+    font-size: 22px;
+  }
+  
+  .navbar-primary.collapsed .nav-label {
+    display: none;
+  }
+  
+  .navbar-primary-menu,
+  .navbar-primary-menu li {
+    margin:0; padding:0;
+    list-style: none;
+  }
+  
+  .navbar-primary-menu li a {
+    display: block;
+    padding: 10px 18px;
+    text-align: left;
+    color: #ccc;
+  }
+  
+  .navbar-primary-menu li a:hover {
+    background-color: #000;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .navbar-primary-menu li a .glyphicon {
+    margin-right: 6px;
+  }
+  
+  .navbar-primary-menu li a:hover .glyphicon {
+    color: orchid;
+  }
+  
+  .main-content {
+    margin-top: 60px;
+    margin-left: 200px;
+    padding: 20px;
+    
+  }
+  
+  .collapsed + .main-content {
+    margin-left: 60px;
+  }
+
+  .navbar-element-title {
+    color: white;
+  }
+
+  .navbar-element-title-collapse {
+    display: none;
+  }
+
+  .navbar-section-container {
+    border: solid 1px #444;
+  }
+
+  .bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.menu-icon {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #000;
+  color: white;
+}
