@@ -35,7 +35,7 @@ export class DeviceCrudComponent implements OnInit {
       err => console.log(err),
       () => {
         this.form = this._formBuilder.group({
-          ip: [this.device.ip, [Validators.required, Validators.pattern('^(?=.*[^\.]$)((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.?){4}$')]],
+          ipAddress: [this.device.ipAddress, [Validators.required, Validators.pattern('^(?=.*[^\.]$)((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.?){4}$')]],
           hostname: [this.device.hostname, Validators.required]
         });
       }
@@ -51,7 +51,7 @@ export class DeviceCrudComponent implements OnInit {
     switch(this.operation) {
       case "update": {
         console.log('Updating');
-        const device = {hostname: this.form.controls['hostname'].value , ip: this.form.controls['ip'].value};
+        const device = {hostname: this.form.controls['hostname'].value , ipAddress: this.form.controls['ipAddress'].value};
         this.deviceService.updateDevice(this.device.id, device).subscribe(res => {
           let id = res['_id'];
         }, (err) => {
@@ -72,7 +72,7 @@ export class DeviceCrudComponent implements OnInit {
   }
 
   showSubmitButton() {
-    return this.itemRemoved || (this.form.controls['hostname'].valid && this.form.controls['hostname'].touched) || (this.form.controls['ip'].valid && this.form.controls['ip'].touched)
+    return this.itemRemoved || (this.form.controls['hostname'].valid && this.form.controls['hostname'].touched) || (this.form.controls['ipAddress'].valid && this.form.controls['ipAddress'].touched)
   }
 
 }

@@ -14,7 +14,7 @@ export class DeviceService {
   }
 
   getID(id: any) {
-    return this.http.get("http://localhost:8081/inventory/device/view" + id);
+    return this.http.get("http://localhost:8081/inventory/device/view/" + id);
   }
 
   updateDevice(id: string, data: any) {
@@ -23,7 +23,7 @@ export class DeviceService {
         'Content-Type':  'application/json'
       })
     };
-    var url: string = ("http://localhost:8081/inventory/device/update" + id);
+    var url: string = ("http://localhost:8081/inventory/device/update/" + id);
     console.log(url);
     console.log(data);
     return this.http.put(url, data, httpOptions);
@@ -46,7 +46,7 @@ export class DeviceService {
         'Content-Type':  'application/json'
       })
     };
-    var url: string = ("http://localhost:8081/inventory/device/delete" + id);
+    var url: string = ("http://localhost:8081/inventory/device/delete/" + id);
     console.log(url);
     return this.http.delete(url, httpOptions);
 	}

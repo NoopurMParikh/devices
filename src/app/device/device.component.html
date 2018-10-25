@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<div class="container  d-flex justify-content-end" *ngIf="form-group">
+<div class="container  d-flex justify-content-end">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
         New Device
     </button>
@@ -16,24 +16,26 @@
         </button>
       </div>
       <div class="modal-body">
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        
+          <form [formGroup]="form1" (ngSubmit)="onSubmit()">
             <div class="form-row">
               <div class="col form-group">
                 <label>Hostname</label>
                 <input type="text" class="form-control" formControlName="hostname">
-                <div class="alert alert-danger" *ngIf="!form.controls['hostname'].valid && form.controls['hostname'].touched">Enter valid hostname</div>
+                <div class="alert alert-danger" *ngIf="!form1.controls['hostname'].valid && form1.controls['hostname'].touched">Enter valid hostname</div>
               </div>
               <div class="col form-group">
                 <label>IP</label>
-                <input type="text" class="form-control" formControlName="ip">
-                <div class="alert alert-danger" *ngIf="form.controls['ip'].errors && form.controls['ip'].touched">Enter valid ip</div>
+                <input type="text" class="form-control" formControlName="ipAddress">
+                <div class="alert alert-danger" *ngIf="form1.controls['ipAddress'].errors && form1.controls['ipAddress'].touched">Enter valid ip</div>
               </div>
             </div>
           </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addDevice()" *ngIf="!form.controls['ip'].errors && form.controls['ip'].touched && !form.controls['hostname'].errors && form.controls['hostname'].touched">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addDevice()" *ngIf="!form1.controls['ipAddress'].errors && form1.controls['ipAddress'].touched && !form1.controls['hostname'].errors && form1.controls['hostname'].touched">Save changes</button>
+        <!-- *ngIf="!form.controls['ip'].errors && form.controls['ip'].touched && !form.controls['hostname'].errors && form.controls['hostname'].touched" -->
       </div>
     </div>
   </div>
@@ -47,7 +49,7 @@
       </thead>
       <tr *ngFor="let device of devices">
         <td><a [routerLink]="[device.id]">{{ device.hostname }}</a></td>
-        <td>{{ device.ip }}</td>
+        <td>{{ device.ipAddress }}</td>
       </tr>
     </table>
 </div>

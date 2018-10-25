@@ -10,34 +10,39 @@ import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 export class DeviceGroupComponent implements OnInit {
 
   groups: any;
-  form: FormGroup;
+  form2: FormGroup;
   devices: any[];
-  constructor(private groupService: GroupService, private _formBuilder: FormBuilder) { }
+  constructor(private groupService: GroupService, private _formBuilder: FormBuilder) {
+    
+    
+   }
 
-  ngOnInit() {
-    this.groupService.getAll().subscribe((data) =>{
+  async ngOnInit() {
+    await this.groupService.getAll().subscribe((data) =>{
       this.groups = data;
       //For debugging
-      //console.log(this.groups);
+      console.log(this.groups);
+      this.form2 = this._formBuilder.group({
+        group_name: [null, Validators.required],
+        group_desc: [null, Validators.required],
+        ipAddress: [null, [Validators.required, Validators.pattern('^(?=.*[^\.]$)((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.?){4}$')]],
+        hostname: [null, Validators.required],
+        group: [null, Validators.required]
+        
+      });
     },
     err => console.log(err),
     () => {
-      this.form = this._formBuilder.group({
-        name: [null, Validators.required],
-        description: [null],
-        ip: [null, [Validators.required, Validators.pattern('^(?=.*[^\.]$)((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.?){4}$')]],
-        hostname: [null, Validators.required]
-        
-      });
+     
     });
   }
 
   addGroup() {
     const group = {
-      name: this.form.controls['name'].value,
-      description: this.form.controls['description'].value,
-      devices: this.devices,
-      devicegroup: this.groups
+      group_name: this.form2.controls['group_name'].value,
+      gorup_desc: this.form2.controls['group_desc'].value,
+      deviceList: this.devices,
+      deviceGroup: this.groups
     }
     this.groupService.postDeviceGroup(group).subscribe(res => {
       let id = res['_id'];
@@ -51,7 +56,7 @@ export class DeviceGroupComponent implements OnInit {
   }
 
   addDevice() {
-    const device = {hostname: this.form.controls['hostname'].value , ip: this.form.controls['ip'].value, group: this.form.controls['group'].value.split(',')};
+    const device = {hostname: this.form2.controls['hostname'].value , ipAddress: this.form2.controls['ipAddress'].value, group: this.form2.controls['group'].value.split(',')};
     console.log(device);
     this.devices.push(device);
     this.addGroup()
